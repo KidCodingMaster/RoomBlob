@@ -26,3 +26,7 @@ Use the [suggest_room.py](suggest_room.py) file to suggest an unoccupied room ba
 ```bash
 pip install textblob
 ```
+
+## Credits
+
+**Thanks to my brain for the idea, my hands for coding this, and my eyes for the eyesight and giving me a strain on the way😂**
