@@ -5,6 +5,11 @@ def create_rooms(num_rooms):
     data = {}
 
     for num in range(num_rooms):
-        data[str(num + 1)] = {"reviews": [], "ratings": [], "avg": 0.0}
+        data[str(num + 1)] = {
+            "reviews": [],
+            "ratings": [],
+            "avg": 0.0,
+            "occupied": False,
+        }
 
     write_json("./rooms.json", data)
