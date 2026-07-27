@@ -13,3 +13,14 @@ Use the [create_rooms.py](create_rooms.py) file to add all the hotel rooms into 
 
 Use the [give_review.py](give_review.py) file to give reviews about a room
 
+## Installation
+
+### PIP Packages:
+
+1. **textblob**
+
+### Commands:
+
+```bash
+pip install textblob
+```
