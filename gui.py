@@ -4,6 +4,7 @@ from ttkbootstrap.validation import Validation
 from create_rooms import create_rooms
 from give_review import give_review
 from suggest_room import suggest_room, occupy, vacate
+from json_functions import read_json
 
 
 def clear_screen():
@@ -37,6 +38,11 @@ def home_page(*args):
         container, text="Suggest Room", width=10, command=suggest_page
     )
     suggest_room_btn.grid(row=3, column=1, pady=20)
+
+    search_room_btn = tb.Button(
+        container, text="Search Room", width=10, command=search_room_page
+    )
+    search_room_btn.grid(row=4, column=1, pady=20)
 
 
 def create_rooms_sumbit(
@@ -191,7 +197,7 @@ def suggest_page():
         suggested_room = None
 
     suggest_room_failed_text = tb.Label(
-        container, text="Review Created Failed", bootstyle="danger"
+        container, text="Room Suggestion Failed", bootstyle="danger"
     )
 
     if (
@@ -211,6 +217,96 @@ def suggest_page():
         suggested_room_rating_label.grid(row=2, column=1)
     else:
         suggest_room_failed_text.grid(row=4, column=1)
+
+
+def occupy_room(container, room_entry, failed_text, room):
+    occupy(str(room))
+    search_room_search(
+        container,
+        room_entry,
+        failed_text,
+    )
+    
+def vacate_room(container, room_entry, failed_text, room):
+    vacate(str(room))
+    search_room_search(
+        container,
+        room_entry,
+        failed_text,
+    )
+
+
+def search_room_search(container, room_entry, failed_text):
+    try:
+        room = int(room_entry.get())
+    except:
+        room = None
+
+    room_details_label = tb.Label(container)
+
+    if room is not None:
+        json = read_json("rooms.json")
+        room_details = json[str(room)]
+
+        room_details_txt = f"""
+            Average rating: {room_details['avg']}
+            {"Occupied" if room_details['occupied'] else "Not Occupied"}
+            """
+
+        room_details_label.config(text=room_details_txt)
+        room_details_label.grid(row=3, column=1)
+
+        occupy_btn = tb.Button(
+            container,
+            text="Occupy Room",
+            command=lambda: occupy_room(container, room_entry, failed_text, str(room)),
+        )
+        vacate_btn = tb.Button(
+            container,
+            text="Vacate Room",
+            command=lambda: vacate_room(container, room_entry, failed_text, str(room)),
+        )
+
+        if room_details["occupied"]:
+            vacate_btn.grid(row=4, column=1)
+        else:
+            occupy_btn.grid(row=4, column=1)
+
+    else:
+        failed_text.grid(row=3, column=1)
+
+
+def search_room_page():
+    clear_screen()
+
+    container = tb.Frame(root)
+    container.grid(row=0, column=0)
+
+    container.rowconfigure((0, 1, 2), weight=1)
+    container.columnconfigure((0, 1, 2), weight=1)
+
+    title_txt = tb.Label(container, text="RoomBlob", font=("Helvetica", 28, "bold"))
+    title_txt.grid(row=0, column=1, pady=50)
+    title_txt.bind("<Button-1>", home_page)
+
+    search_room_room_label = tb.Label(container, text="Room: ")
+    search_room_room_label.grid(row=1, column=0)
+
+    search_room_room_entry = tb.Entry(container)
+    search_room_room_entry.grid(row=1, column=1)
+
+    search_room_failed_txt = tb.Label(
+        container, text="Room Search Failed", bootstyle="danger"
+    )
+
+    search_room_btn = tb.Button(
+        container,
+        text="Search",
+        command=lambda: search_room_search(
+            container, search_room_room_entry, search_room_failed_txt
+        ),
+    )
+    search_room_btn.grid(row=2, column=1)
 
 
 root = tb.Window(themename="superhero")

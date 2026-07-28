@@ -1,4 +1,4 @@
-# RoomBlob
+# RoomBlob 1.0
 ---
 
 **Roomblob** is a software that can give people the best rooms in a hotel based on previous reviews
@@ -15,7 +15,7 @@ Use the [give_review.py](give_review.py) file to give reviews about a room
 
 Use the [suggest_room.py](suggest_room.py) file to suggest an unoccupied room based on previous review, and to occupy and vacate a room
 
-Use the [gui.py](gui.py) file to use the GUI of the software **(work in progress)**
+Use the [gui.py](gui.py) file to use the GUI of the software
 
 ## Installation
 
@@ -32,4 +32,4 @@ pip install textblob ttkbootstrap
 
 ## Credits
 
-**Thanks to my brain for the idea, my hands for coding this, and my eyes for the eyesight and giving me a strain on the way😂**
+**Thanks to my brain for the idea, my hands for coding this, and my eyes for the eyesight and giving me a strain on the way. I would also like to thank Google Gemini for helping me and a Ctrl+C, Ctrl+V for helping me a lot😂😂😂**
