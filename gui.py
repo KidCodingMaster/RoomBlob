@@ -226,7 +226,8 @@ def occupy_room(container, room_entry, failed_text, room):
         room_entry,
         failed_text,
     )
-    
+
+
 def vacate_room(container, room_entry, failed_text, room):
     vacate(str(room))
     search_room_search(
@@ -310,7 +311,8 @@ def search_room_page():
 
 
 root = tb.Window(themename="superhero")
-root.geometry("400x300")
+root.geometry("600x600")
+root.title("RoomBlob")
 
 root.rowconfigure(0, weight=1)
 root.columnconfigure(0, weight=1)
