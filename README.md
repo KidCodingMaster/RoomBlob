@@ -15,16 +15,19 @@ Use the [give_review.py](give_review.py) file to give reviews about a room
 
 Use the [suggest_room.py](suggest_room.py) file to suggest an unoccupied room based on previous review, and to occupy and vacate a room
 
+Use the [gui.py](gui.py) file to use the GUI of the software **(work in progress)**
+
 ## Installation
 
 ### PIP Packages:
 
 1. **textblob**
+2. **ttkbootstrap**
 
 ### Commands:
 
 ```bash
-pip install textblob
+pip install textblob ttkbootstrap
 ```
 
 ## Credits
