@@ -3,6 +3,7 @@ from ttkbootstrap.constants import *
 from ttkbootstrap.validation import Validation
 from create_rooms import create_rooms
 from give_review import give_review
+from suggest_room import suggest_room, occupy, vacate
 
 
 def clear_screen():
@@ -31,6 +32,11 @@ def home_page(*args):
         container, text="Give Review", width=10, command=give_review_page
     )
     give_review_btn.grid(row=2, column=1, pady=20)
+
+    suggest_room_btn = tb.Button(
+        container, text="Suggest Room", width=10, command=suggest_page
+    )
+    suggest_room_btn.grid(row=3, column=1, pady=20)
 
 
 def create_rooms_sumbit(
@@ -109,14 +115,13 @@ def give_review_page_submit(
     give_review_page_room.delete(0, "end")
     give_review_page_review.delete(0, "end")
 
-    if room and room is not None:
+    if room and room is not None and review != "":
         give_review(str(room), review)
 
         give_review_page_failed_text.grid_remove()
 
         give_review_page_success_text.grid(row=4, column=1)
     else:
-
         give_review_page_success_text.grid_remove()
 
         give_review_page_failed_text.grid(row=4, column=1)
@@ -165,6 +170,47 @@ def give_review_page():
         ),
     )
     give_review_entry_btn.grid(row=3, column=1)
+
+
+def suggest_page():
+    clear_screen()
+
+    container = tb.Frame(root)
+    container.grid(row=0, column=0)
+
+    container.rowconfigure((0, 1, 2), weight=1)
+    container.columnconfigure((0, 1, 2), weight=1)
+
+    title_txt = tb.Label(container, text="RoomBlob", font=("Helvetica", 28, "bold"))
+    title_txt.grid(row=0, column=1, pady=50)
+    title_txt.bind("<Button-1>", home_page)
+
+    try:
+        suggested_room = suggest_room()
+    except:
+        suggested_room = None
+
+    suggest_room_failed_text = tb.Label(
+        container, text="Review Created Failed", bootstyle="danger"
+    )
+
+    if (
+        suggested_room is not None
+        and suggested_room[0] is not None
+        and suggested_room[1] is not None
+    ):
+        suggest_room_failed_text.destroy()
+
+        suggested_room_label = tb.Label(
+            container, text="Room Number: " + suggested_room[0]
+        )
+        suggested_room_label.grid(row=1, column=1)
+        suggested_room_rating_label = tb.Label(
+            container, text="Average Rating: " + str(suggested_room[1])
+        )
+        suggested_room_rating_label.grid(row=2, column=1)
+    else:
+        suggest_room_failed_text.grid(row=4, column=1)
 
 
 root = tb.Window(themename="superhero")

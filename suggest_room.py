@@ -4,7 +4,7 @@ from json_functions import read_json, write_json
 def suggest_room():
     json = read_json("rooms.json")
 
-    max_num = 0
+    max_num = -1
     room_num = None
 
     for i, room in enumerate(json.values()):
